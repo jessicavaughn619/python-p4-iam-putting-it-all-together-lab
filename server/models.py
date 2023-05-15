@@ -1,6 +1,7 @@
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
+from sqlalchemy.exc import IntegrityError
 
 from config import db, bcrypt
 
@@ -44,6 +45,12 @@ class Recipe(db.Model, SerializerMixin):
     minutes_to_complete = db.Column(db.Integer)
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    
+    # @validates('instructions')
+    # def validate_instructions(self, key, instructions):
+    #     if len(instructions) < 50:
+    #         raise ValueError("Instructions must be longer than 50 characters.")
+    #     return instructions
     
     def __repr__(self):
         return f'<Recipe {self.title}>'

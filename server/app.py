@@ -68,7 +68,7 @@ class RecipeIndex(Resource):
         return {'error': '401 Unauthorized'}, 401
     
     def post(self):
-        if session.get['user_id']:
+        if session.get('user_id'):
             request_json = request.get_json()
             title = request_json['title']
             instructions = request_json['instructions']
